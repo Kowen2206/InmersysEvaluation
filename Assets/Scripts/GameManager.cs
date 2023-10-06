@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameSection currentSection = GameSection.MainMenu;
 
     public GameSection CurrentSection
-    { set => currentSection = value;}
+    { get => currentSection; set => currentSection = value;}
 
 
     // Start is called before the first frame update
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadMainMenuScene()
     {
+        currentSection = GameSection.MainMenu;
         SceneManager.LoadScene(0);
     }
 
