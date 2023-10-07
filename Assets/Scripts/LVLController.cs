@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LVLController : MonoBehaviour
 {
-
     [SerializeField] private GameObject lVL1Group, lVL2Group;
     public GameObject CurrentSelectedObject
     {
@@ -25,11 +24,5 @@ public class LVLController : MonoBehaviour
             lVL1Group.SetActive(false); 
         }
     }
-
-    public void OnSelectObject()
-    {
-        
-    }
-
 
 }

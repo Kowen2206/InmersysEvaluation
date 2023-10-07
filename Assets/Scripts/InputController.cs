@@ -9,6 +9,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private UnityEvent<Vector3> OnOneFingerTouch, OnTwoFingersMove;
     [SerializeField] private UnityEvent<Vector3[]> OnOneFingerMoves;
     [SerializeField] private UnityEvent OnTwoFingersMoveOut, OnTwoFingersMoveIn;
+    [SerializeField] private UnityEvent<float> _onHorizontalDisplacement, _onVerticalDisplacement;
     private Vector3[] _previousFingerPosition = new Vector3[2] { Vector3.zero, Vector3.zero };
     private Vector3[] _normalizedMoveDirection = new Vector3[2] { Vector3.zero, Vector3.zero };
     private float _currentFingersDistance, _previousFingerDistance;
@@ -83,7 +84,12 @@ public class InputController : MonoBehaviour
         if (Input.touchCount > 1)
         {
             direction = _previousFingerPosition[1] - new Vector3(Input.GetTouch(1).position.x, Input.GetTouch(1).position.y);
-            _normalizedMoveDirection[1] = new Vector3(Mathf.RoundToInt(direction.normalized.x), Mathf.RoundToInt(direction.normalized.y));
+            _normalizedMoveDirection[1] = new Vector3(Mathf.RoundToInt(direction.normalized.x), Mathf.RoundToInt(direction.normalized.y));            
+        }
+        else
+        {
+            _onHorizontalDisplacement?.Invoke(Mathf.Sign(_previousFingerPosition[0].x));
+            _onVerticalDisplacement?.Invoke(Mathf.Sign(_previousFingerPosition[0].y));
         }
     }
 

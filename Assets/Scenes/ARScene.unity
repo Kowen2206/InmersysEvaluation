@@ -1151,6 +1151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014427229}
+  - component: {fileID: 1014427230}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -1177,6 +1178,23 @@ Transform:
   m_Father: {fileID: 158548168}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1014427230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014427228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ac11c4f53c7114aac0585f79e7bae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bar: {fileID: 1797031464}
+  _handle: {fileID: 345284618}
+  _maxPoint: {fileID: 947215869}
+  _minPoint: {fileID: 1419036668}
+  _lVLController: {fileID: 1978735754}
 --- !u!1 &1133438296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,10 +1638,25 @@ MonoBehaviour:
   _onRaycastCollision:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 252550045}
-        m_TargetAssemblyTypeName: ChangeSpriteColor, Assembly-CSharp
-        m_MethodName: SetSecondaryColor
-        m_Mode: 1
+      - m_Target: {fileID: 1978735754}
+        m_TargetAssemblyTypeName: LVLController, Assembly-CSharp
+        m_MethodName: set_CurrentSelectedObject
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onRaycastCollisionFail:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1978735754}
+        m_TargetAssemblyTypeName: LVLController, Assembly-CSharp
+        m_MethodName: set_CurrentSelectedObject
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1669,6 +1702,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnTwoFingersMoveIn:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHorizontalDisplacement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1014427230}
+        m_TargetAssemblyTypeName: Slider, Assembly-CSharp
+        m_MethodName: MoveHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onVerticalDisplacement:
     m_PersistentCalls:
       m_Calls: []
   touchingScreen: 0
