@@ -5,24 +5,35 @@ using UnityEngine;
 
 public class Slider : MonoBehaviour
 {
-    float minValue = 0, maxValue = 1, currentValue;
-    [SerializeField] GameObject _bar, _handle, _maxPoint, _minPoint;
+    float maxValue = 100, currentValue;
+    [SerializeField] GameObject _bar, _handle;
     [SerializeField] LVLController _lVLController;
-    public bool IsSelected { set => IsSelected = value; get => IsSelected;}
+    BoxCollider barCollider;
+    private bool isSelected;
+    public bool IsSelected { set => isSelected = value; get => isSelected;}
 
-    // Start is called before the first frame update
     void Start()
     {
-        _handle.transform.position = _minPoint.transform.position;
+        barCollider = _bar.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
-    public void MoveHandler(float direction)
+    public void MoveHandler(Vector3 newHandlePos)
     {
-        if(_lVLController.CurrentSelectedObject != _handle) return;
-        direction = Mathf.Sign(direction);
-        if(Vector3.Distance(_maxPoint.transform.position, transform.position) > 0
-        && Vector3.Distance(_minPoint.transform.position, transform.position) > 0)
-        transform.localPosition += Vector3.left * direction * Time.deltaTime;
+        Vector3 handlePos = _handle.transform.position; 
+        if(_lVLController.CurrentSelectedObject == _bar)
+        _handle.transform.position = new Vector3(newHandlePos.x, handlePos.y, handlePos.z);
+    }
+
+    public void CalculateSliderValue()
+    {
+        currentValue = maxValue * _handle.transform.position.x/barCollider.bounds.max.x;
+        if(currentValue < 0) currentValue = 0;
+        if(currentValue > maxValue) currentValue = maxValue;
+    }
+
+    void Update()
+    {
+        CalculateSliderValue();
     }
 }

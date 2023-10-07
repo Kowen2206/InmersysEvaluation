@@ -7,9 +7,9 @@ public class InputController : MonoBehaviour
 {
     //Todo dejar la seleccion de modelos como responsabilidad del manager de la escena
     [SerializeField] private UnityEvent<Vector3> OnOneFingerTouch, OnTwoFingersMove;
-    [SerializeField] private UnityEvent<Vector3[]> OnOneFingerMoves;
+    [SerializeField] private UnityEvent<Vector3> OnOneFingerMoves;
     [SerializeField] private UnityEvent OnTwoFingersMoveOut, OnTwoFingersMoveIn;
-    [SerializeField] private UnityEvent<float> _onHorizontalDisplacement, _onVerticalDisplacement;
+    [SerializeField] private UnityEvent<float> _onHorizontalFingerDisplacement, _onVerticalFingerDisplacement;
     private Vector3[] _previousFingerPosition = new Vector3[2] { Vector3.zero, Vector3.zero };
     private Vector3[] _normalizedMoveDirection = new Vector3[2] { Vector3.zero, Vector3.zero };
     private float _currentFingersDistance, _previousFingerDistance;
@@ -79,17 +79,17 @@ public class InputController : MonoBehaviour
 
     void CalculateFingersDirection()
     {
-        Vector3 direction = _previousFingerPosition[0] - new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+        Vector3 direction = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y) - _previousFingerPosition[0] ;
         _normalizedMoveDirection[0] = new Vector3(Mathf.RoundToInt(direction.normalized.x), Mathf.RoundToInt(direction.normalized.y));
         if (Input.touchCount > 1)
         {
-            direction = _previousFingerPosition[1] - new Vector3(Input.GetTouch(1).position.x, Input.GetTouch(1).position.y);
+            direction = new Vector3(Input.GetTouch(1).position.x, Input.GetTouch(1).position.y) - _previousFingerPosition[1];
             _normalizedMoveDirection[1] = new Vector3(Mathf.RoundToInt(direction.normalized.x), Mathf.RoundToInt(direction.normalized.y));            
         }
         else
         {
-            _onHorizontalDisplacement?.Invoke(Mathf.Sign(_previousFingerPosition[0].x));
-            _onVerticalDisplacement?.Invoke(Mathf.Sign(_previousFingerPosition[0].y));
+            _onHorizontalFingerDisplacement?.Invoke(Mathf.Sign(direction.x));
+            _onVerticalFingerDisplacement?.Invoke(Mathf.Sign(direction.y));
         }
     }
 
@@ -131,7 +131,7 @@ public class InputController : MonoBehaviour
         if (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             CalculateFingersDirection();
-            OnOneFingerMoves?.Invoke(new Vector3[] { _previousFingerPosition[0], Input.GetTouch(0).position });
+            OnOneFingerMoves?.Invoke(Input.GetTouch(0).position);
             _previousFingerPosition[0] = Input.GetTouch(0).position;
         }
     }
