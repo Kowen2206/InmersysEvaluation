@@ -13,10 +13,10 @@ public class Slider : MonoBehaviour
 
     BoxCollider barCollider;
     private bool isSelected;
-    [SerializeField] float maxValue = 100, currentValue;
+    [SerializeField] float maxValue = 10, currentValue;
 
     public bool IsSelected { set => isSelected = value; get => isSelected;}
-    public float MaxValue{ get => maxValue;}
+    public float MaxValue{ get => maxValue; set => maxValue = value;}
     public float CurrentValue{ get => currentValue;}
 
     void Start()
@@ -34,7 +34,9 @@ public class Slider : MonoBehaviour
 
     public void CalculateSliderValue()
     {
-        currentValue = maxValue * _handle.transform.position.x/barCollider.bounds.max.x;
+        float sliderWidth = barCollider.bounds.size.x;
+        float minPointDistance = Vector3.Distance(_handle.transform.position, barCollider.bounds.min);
+        currentValue = minPointDistance * maxValue/ sliderWidth;
         if(currentValue < 0) currentValue = 0;
         if(currentValue > maxValue) currentValue = maxValue;
         _onSliderValueChange?.Invoke(currentValue);
