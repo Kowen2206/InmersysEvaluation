@@ -6,6 +6,11 @@ public class LVLController : MonoBehaviour
 {
 
     [SerializeField] private GameObject lVL1Group, lVL2Group;
+    public GameObject CurrentSelectedObject
+    {
+        get => CurrentSelectedObject;
+        set => CurrentSelectedObject = value;
+    }
 
     void Start()
     {
@@ -19,6 +24,11 @@ public class LVLController : MonoBehaviour
             lVL2Group.SetActive(true);
             lVL1Group.SetActive(false); 
         }
+    }
+
+    public void OnSelectObject()
+    {
+        
     }
 
 
