@@ -8,6 +8,7 @@ public class Slider : MonoBehaviour
     [SerializeField] GameObject _bar, _handle, _maxPoint, _minPoint;
     float pointsDistance;
 
+    public bool IsSelected { set => IsSelected = value; get => IsSelected;}
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +18,11 @@ public class Slider : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void UpdateHandlePosition()
     {
-        
+        if(IsSelected)
+        {
+            
+        }
     }
 }
