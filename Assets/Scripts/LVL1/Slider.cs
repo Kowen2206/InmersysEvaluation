@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class Slider : MonoBehaviour
 {
-    float maxValue = 100, currentValue;
+
     [SerializeField] GameObject _bar, _handle;
     [SerializeField] LVLController _lVLController;
+    [SerializeField] UnityEvent<float> _onSliderValueChange; 
+
     BoxCollider barCollider;
     private bool isSelected;
+    [SerializeField] float maxValue = 100, currentValue;
+
     public bool IsSelected { set => isSelected = value; get => isSelected;}
+    public float MaxValue{ get => maxValue;}
+    public float CurrentValue{ get => currentValue;}
 
     void Start()
     {
@@ -30,6 +37,7 @@ public class Slider : MonoBehaviour
         currentValue = maxValue * _handle.transform.position.x/barCollider.bounds.max.x;
         if(currentValue < 0) currentValue = 0;
         if(currentValue > maxValue) currentValue = maxValue;
+        _onSliderValueChange?.Invoke(currentValue);
     }
 
     void Update()
