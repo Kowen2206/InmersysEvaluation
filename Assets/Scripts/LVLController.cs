@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LVLController : MonoBehaviour
 {
-
     [SerializeField] private GameObject lVL1Group, lVL2Group;
+    [SerializeField] private GameObject currentSelectedObject;
     public GameObject CurrentSelectedObject
     {
-        get => CurrentSelectedObject;
-        set => CurrentSelectedObject = value;
+        get => currentSelectedObject;
+        set => currentSelectedObject = value;
     }
 
     void Start()
@@ -25,11 +25,5 @@ public class LVLController : MonoBehaviour
             lVL1Group.SetActive(false); 
         }
     }
-
-    public void OnSelectObject()
-    {
-        
-    }
-
 
 }

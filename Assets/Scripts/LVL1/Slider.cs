@@ -1,28 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class Slider : MonoBehaviour
 {
-    float minValue = 0, maxValue = 1, currentValue;
-    [SerializeField] GameObject _bar, _handle, _maxPoint, _minPoint;
-    float pointsDistance;
 
-    public bool IsSelected { set => IsSelected = value; get => IsSelected;}
+    [SerializeField] GameObject _bar, _handle;
+    [SerializeField] LVLController _lVLController;
+    [SerializeField] UnityEvent<float> _onSliderValueChange; 
 
-    // Start is called before the first frame update
+    BoxCollider barCollider;
+    private bool isSelected;
+    [SerializeField] float maxValue = 10, currentValue;
+
+    public bool IsSelected { set => isSelected = value; get => isSelected;}
+    public float MaxValue{ get => maxValue; set => maxValue = value;}
+    public float CurrentValue{ get => currentValue;}
+
     void Start()
     {
-        _handle.transform.position = _minPoint.transform.position;
-        pointsDistance = Vector3.Distance(_maxPoint.transform.position, _minPoint.transform.position);
+        barCollider = _bar.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
-    void UpdateHandlePosition()
+    public void MoveHandler(Vector3 newHandlePos)
     {
-        if(IsSelected)
-        {
-            
-        }
+        Vector3 handlePos = _handle.transform.position; 
+        if(_lVLController.CurrentSelectedObject == _bar)
+        _handle.transform.position = new Vector3(newHandlePos.x, handlePos.y, handlePos.z);
+    }
+
+    public void CalculateSliderValue()
+    {
+        float sliderWidth = barCollider.bounds.size.x;
+        float minPointDistance = Vector3.Distance(_handle.transform.position, barCollider.bounds.min);
+        currentValue = minPointDistance * maxValue/ sliderWidth;
+        if(currentValue < 0) currentValue = 0;
+        if(currentValue > maxValue) currentValue = maxValue;
+        _onSliderValueChange?.Invoke(currentValue);
+    }
+
+    void Update()
+    {
+        CalculateSliderValue();
     }
 }

@@ -8,12 +8,14 @@ public class SinDrawer : MonoBehaviour
     [SerializeField] private float amplitude = 1f;
     [SerializeField] private float frequency = 1f;
     [SerializeField] private float length = 2f;
-    [SerializeField] private LineRenderer lineRenderer;
+
+    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private GameObject _graphicObject;
+    [SerializeField] private Slider _slider;
 
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        
+        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -23,7 +25,7 @@ public class SinDrawer : MonoBehaviour
 
     void DrawSin()
     {
-        lineRenderer.positionCount = resolution + 1;
+        _lineRenderer.positionCount = resolution + 1;
         Vector3[] positions = new Vector3[resolution + 1];
 
         for (int i = 0; i <= resolution; i++)
@@ -33,6 +35,18 @@ public class SinDrawer : MonoBehaviour
             positions[i] = new Vector3(x, y, 0);
         }
 
-        lineRenderer.SetPositions(positions);
+        _lineRenderer.SetPositions(positions);
+    }
+
+    public void SetObjectInGraphic()
+    {
+        int positionIndex =
+        Mathf.Clamp(
+            Mathf.RoundToInt(_lineRenderer.positionCount * _slider.CurrentValue / _slider.MaxValue),
+            0, _lineRenderer.positionCount - 1);
+
+            Debug.Log("positionIndex");
+            Debug.Log(positionIndex);
+        _graphicObject.transform.localPosition = _lineRenderer.GetPosition(positionIndex);
     }
 }
