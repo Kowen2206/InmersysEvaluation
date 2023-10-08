@@ -44,9 +44,6 @@ public class SinDrawer : MonoBehaviour
         Mathf.Clamp(
             Mathf.RoundToInt(_lineRenderer.positionCount * _slider.CurrentValue / _slider.MaxValue),
             0, _lineRenderer.positionCount - 1);
-
-            Debug.Log("positionIndex");
-            Debug.Log(positionIndex);
         _graphicObject.transform.localPosition = _lineRenderer.GetPosition(positionIndex);
     }
 }

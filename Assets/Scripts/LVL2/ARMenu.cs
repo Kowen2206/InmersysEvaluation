@@ -1,30 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class ARMenu : MonoBehaviour
 {
     //Todo: 
-    //crear scriptableObject MenuSettings
     //Crear el prefab BackgroundPlane (un plano que ajusta su tamaño al contenido y funciona como background)
 
     //Settings
-    [SerializeField] private GameObject _itemPrefab;
-    [SerializeField] private float 
-    _itemsOffsetX, _itemsOffsetY, _bodyOffset, _headerOffset, _headerButtonMargin;
+    [SerializeField] private GameObject _itemPrefab, _itemSectionPrefab;
+    [Range(0,.2f)][SerializeField] private float 
+    _itemsOffsetX, _sectionsOffsetX, _itemsOffsetY, _headerOffset, _headerButtonMargin;
     [SerializeField] private List<ItemsSection> _sections;
     private List<GameObject> items = new List<GameObject>();
     private bool sectionsAreLoaded;
     private float columns;
-    private GameObject currentSectionObj;
+    public GameObject currentSelectedSection{get; set;}
+    private Vector3 menuFooterPosition;
+    private Dictionary<MenuSections, GameObject> itemsContainers = new Dictionary<MenuSections, GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         columns = _sections.Count;
-        LoadSections();
-        LoadItems();
     }
 
     public void LoadSections()
@@ -39,51 +39,95 @@ public class ARMenu : MonoBehaviour
 
         foreach (ItemsSection section in _sections)
         {
-            newItem = Instantiate(_itemPrefab, nextPosition, Quaternion.identity);
+            
+            newItem = Instantiate(_itemSectionPrefab, nextPosition, Quaternion.identity);
             newItem.transform.SetParent(transform);
-            newItem.GetComponent<ItemPrefab>().Section = section;
+            newItem.GetComponent<ItemSectionPrefab>().Section = section;
             itemCollider = newItem.GetComponent<BoxCollider>();
             itemPosition = newItem.transform.position;
 
-            if(i == 0) currentSectionObj = newItem;
+            if(i == 0) currentSelectedSection = newItem;
             
-            itemPosition.x -= itemCollider.bounds.size.x + _itemsOffsetX;
+            if(i == columns)
+            {
+                menuFooterPosition.x = itemPosition.x/2;
+            }
+            itemPosition.x -= _sectionsOffsetX;
             nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
+
             i++;
         }   
     }
 
     public void LoadItems()
     {
+        MenuSections currentSection = currentSelectedSection.GetComponent<ItemSectionPrefab>().Section.Section;
+        Debug.Log("currentSection");
+        Debug.Log(currentSection);
+        if(itemsContainers.ContainsKey(currentSection))
+        {
+            ShowItems(currentSection);
+            return;
+        }
+        CreateItemsSection(currentSection);
+
         GameObject newItem;
         Vector3 itemPosition = transform.position;
         BoxCollider itemCollider = _itemPrefab.GetComponent<BoxCollider>();
-        itemPosition.z += itemCollider.bounds.size.z + _headerButtonMargin;
+        itemPosition.z += _headerButtonMargin;
         Vector3 nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
-        
-        //i aumenta 1 por cada item, j aumenta 1 por columna. 
+         
         int i = 1;
-
-        foreach(ItemsSection.Item item in currentSectionObj.GetComponent<ItemPrefab>().Section.Items)
+        int itemsCount = currentSelectedSection.GetComponent<ItemSectionPrefab>().Section.Items.Count;
+        foreach(ItemsSection.Item item in currentSelectedSection.GetComponent<ItemSectionPrefab>().Section.Items)
         {
             newItem = Instantiate(_itemPrefab, nextPosition, Quaternion.identity);
             newItem.GetComponent<ItemPrefab>().Item = item;
-            newItem.transform.SetParent(transform);
+            newItem.transform.SetParent(itemsContainers[currentSection].transform);
+            
             itemCollider = newItem.GetComponent<BoxCollider>();
             itemPosition = newItem.transform.position;
 
-            itemPosition.x -= itemCollider.bounds.size.x + _itemsOffsetX;
+            itemPosition.x -= _itemsOffsetX;
 
-            if(i == 4)
+            if(i == columns)
             {
-                itemPosition.z += itemCollider.bounds.size.z + _itemsOffsetY;
+                itemPosition.z += _itemsOffsetY;
                 itemPosition.x = transform.position.x;
                 i = 0;
             }
 
+            if(i == itemsCount)
+            {
+                menuFooterPosition.y = itemPosition.y + itemCollider.bounds.extents.y + _headerOffset;
+            }
+            
             nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
-
             i++;
+        }
+        ShowItems(currentSection);
+    }
+
+    void CreateItemsSection(MenuSections itemSection)
+    {
+        if(!itemsContainers.ContainsKey(itemSection))
+        {
+            itemsContainers.Add(itemSection, new GameObject());
+
+            Debug.Log("CreatedSection");
+            Debug.Log(itemSection);
+        }
+            
+    }
+
+    void ShowItems(MenuSections section)
+    {
+        foreach (MenuSections itemSection in itemsContainers.Keys)
+        {
+           if(itemSection == section)
+            itemsContainers[itemSection].SetActive(true);
+           else
+            itemsContainers[itemSection].SetActive(false);
         }
     }
 }

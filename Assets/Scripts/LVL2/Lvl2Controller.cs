@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Lvl2Controller : MonoBehaviour
 {
-   public void LoadMenu()
-   {
 
-   }
 
-   public void HideMenu()
-   {
-
-   }
 }

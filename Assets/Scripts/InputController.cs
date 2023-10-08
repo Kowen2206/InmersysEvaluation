@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    //Todo dejar la seleccion de modelos como responsabilidad del manager de la escena
-    [SerializeField] private UnityEvent<Vector3> OnOneFingerTouch, OnTwoFingersMove;
+
+    [SerializeField] private UnityEvent<Vector3> _onOneFingerTouch, _onTwoFingersMove;
     [SerializeField] private UnityEvent<Vector3> OnOneFingerMoves;
-    [SerializeField] private UnityEvent OnTwoFingersMoveOut, OnTwoFingersMoveIn;
+    [SerializeField] private UnityEvent _onTwoFingersMoveOut, _onTwoFingersMoveIn;
     [SerializeField] private UnityEvent<float> _onHorizontalFingerDisplacement, _onVerticalFingerDisplacement;
     private Vector3[] _previousFingerPosition = new Vector3[2] { Vector3.zero, Vector3.zero };
     private Vector3[] _normalizedMoveDirection = new Vector3[2] { Vector3.zero, Vector3.zero };
@@ -96,7 +96,7 @@ public class InputController : MonoBehaviour
     void FingersMoveSameDirection()
     {
         _previousFingerPosition[0] = Input.GetTouch(0).position;
-        OnTwoFingersMove?.Invoke(_normalizedMoveDirection[1]);
+        _onTwoFingersMove?.Invoke(_normalizedMoveDirection[1]);
     }
 
     void FingersInOut()
@@ -107,11 +107,11 @@ public class InputController : MonoBehaviour
 
             if (_currentFingersDistance > _previousFingerDistance)
             {
-                OnTwoFingersMoveOut?.Invoke();
+                _onTwoFingersMoveOut?.Invoke();
             }
             if (_currentFingersDistance < _previousFingerDistance)
             {
-                OnTwoFingersMoveIn?.Invoke();
+                _onTwoFingersMoveIn?.Invoke();
             }
             _previousFingerDistance = Vector3.Distance(Input.GetTouch(1).position, Input.GetTouch(0).position);
         }
@@ -121,7 +121,7 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            OnOneFingerTouch?.Invoke(Input.GetTouch(0).position);
+            _onOneFingerTouch?.Invoke(Input.GetTouch(0).position);
             _previousFingerPosition[0] = Input.GetTouch(0).position;
         }
     }
