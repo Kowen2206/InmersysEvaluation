@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d6ea6c434ebf64dbd6e2329b3e898b, type: 3}
+  m_Name: WheelsSection
+  m_EditorClassIdentifier: 
+  Name: Wheels
+  Icon: {fileID: 2800000, guid: f9807249a2921cc45a5c70d0f8d77f6e, type: 3}
+  Section: 0
+  Items:
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
+  - Name: WoodWheel
+    Icon: {fileID: 0}
+    Section: 0
+    Mesh: {fileID: 0}
