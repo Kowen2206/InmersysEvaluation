@@ -23,6 +23,8 @@ public class ARMenu : MonoBehaviour
     void Start()
     {
         columns = _sections.Count;
+        LoadSections();
+        LoadItems();
     }
 
     public void LoadSections()
@@ -38,20 +40,16 @@ public class ARMenu : MonoBehaviour
         foreach (ItemsSection section in _sections)
         {
             newItem = Instantiate(_itemPrefab, nextPosition, Quaternion.identity);
-            //newItem.GetComponent<ItemPrefab>().SetupItemSectionPrefab(section);
+            newItem.transform.SetParent(transform);
+            newItem.GetComponent<ItemPrefab>().Section = section;
             itemCollider = newItem.GetComponent<BoxCollider>();
             itemPosition = newItem.transform.position;
 
-            if(i == 0)
-            {
-                itemPosition.x += itemCollider.bounds.size.x + _itemsOffsetX;
-                nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
-            }
-            else
-            {
-                itemPosition.x = itemPosition.x + (itemCollider.bounds.size.x * i) + _itemsOffsetX;
-                nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z) ;
-            }
+            if(i == 0) currentSectionObj = newItem;
+            
+            itemPosition.x -= itemCollider.bounds.size.x + _itemsOffsetX;
+            nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
+            i++;
         }   
     }
 
@@ -60,35 +58,32 @@ public class ARMenu : MonoBehaviour
         GameObject newItem;
         Vector3 itemPosition = transform.position;
         BoxCollider itemCollider = _itemPrefab.GetComponent<BoxCollider>();
-        itemPosition.z += itemCollider.bounds.size.y + _headerButtonMargin;
+        itemPosition.z += itemCollider.bounds.size.z + _headerButtonMargin;
         Vector3 nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
         
         //i aumenta 1 por cada item, j aumenta 1 por columna. 
-        int i = 0, j = 0;
+        int i = 1;
 
-        foreach(ItemsSection.Item item in currentSectionObj.GetComponent<ItemsSection>().Items)
+        foreach(ItemsSection.Item item in currentSectionObj.GetComponent<ItemPrefab>().Section.Items)
         {
             newItem = Instantiate(_itemPrefab, nextPosition, Quaternion.identity);
-            //newItem.GetComponent<ItemPrefab>().SetupItemPrefab(item);
+            newItem.GetComponent<ItemPrefab>().Item = item;
+            newItem.transform.SetParent(transform);
             itemCollider = newItem.GetComponent<BoxCollider>();
             itemPosition = newItem.transform.position;
 
-            if(i == 0)
-            {
-                itemPosition.x += itemCollider.bounds.size.x + _itemsOffsetX;
-                nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
-            }
-            else
-            {
-                itemPosition.x = itemPosition.x + (itemCollider.bounds.size.x * i) + _itemsOffsetX;
-                nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z) ;
-            }
+            itemPosition.x -= itemCollider.bounds.size.x + _itemsOffsetX;
 
-            if(j%4 == 0)
+            if(i == 4)
             {
-                itemPosition.z += itemCollider.bounds.size.y + _itemsOffsetY;
+                itemPosition.z += itemCollider.bounds.size.z + _itemsOffsetY;
+                itemPosition.x = transform.position.x;
                 i = 0;
             }
+
+            nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
+
+            i++;
         }
     }
 }
