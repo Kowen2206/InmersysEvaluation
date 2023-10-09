@@ -6,13 +6,13 @@ public class LVLController : MonoBehaviour
 {
     public static LVLController Instance;
 
-    [SerializeField] private GameObject _lVL1Group, _lVL2Group, _kartPrefab;
+    [SerializeField] private GameObject _lVL1Group, _lVL2Group;
     [SerializeField] private ARMenu _aRMenu;
-
+    [SerializeField] private KartLoader _kartLoader;
+    
+    public KartLoader KartLoader{get => _kartLoader;}
     public ARMenu ARMenu{get => _aRMenu;}
     private GameObject currentSelectedObject;
-
-    public GameObject KartPrefab{get => _kartPrefab;}
 
     public GameObject CurrentSelectedObject
     {
@@ -35,17 +35,25 @@ public class LVLController : MonoBehaviour
     void Start()
     {
         if(GameManager.Instance.CurrentSection == GameSection.Lvl1)
-        {
-            _lVL2Group.SetActive(false);
-            _lVL1Group.SetActive(true);
-        }
+            LoadLVL1();
         else
-        {
-            _lVL2Group.SetActive(true);
-            _lVL1Group.SetActive(false);
-            _aRMenu.LoadSections();
-            _aRMenu.LoadItems();
-        }
+            LoadLVL2();
+        
+    }
+
+    public void LoadLVL1()
+    {
+        _lVL2Group.SetActive(false);
+        _lVL1Group.SetActive(true);
+    }
+
+    public void LoadLVL2()
+    {
+        _lVL2Group.SetActive(true);
+        _lVL1Group.SetActive(false);
+        _kartLoader.LoadPlayerKartData();
+        _aRMenu.LoadSections();
+        _aRMenu.LoadItems();
     }
 
     public void InteractWithSelectedObj()

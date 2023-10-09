@@ -26,18 +26,6 @@ public class ItemPrefab : InteractiveObject
     public override void Interact()
     {
         base.Interact();
-
-        switch (Item.Section)
-        {
-            case MenuSections.Wheels: 
-            //LVLController.Instance.KartPrefab.setWheels(Item.Mesh);
-            break;
-            case MenuSections.Gliders: 
-            break;
-            case MenuSections.Characters: 
-            break;
-            case MenuSections.Karts: 
-            break;
-        }
+        LVLController.Instance.KartLoader.LoadPart(Item.Model, Item.Section);
     }
 }

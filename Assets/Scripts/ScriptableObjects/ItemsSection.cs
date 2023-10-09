@@ -12,15 +12,21 @@ public class ItemsSection : ScriptableObject
     [Serializable]
     public struct Item
     {
-        public string Name;
         public Texture Icon;
         public MenuSections Section;
-        public GameObject Mesh;
+        public GameObject Model;
     }
 
-    public string Name;
     public Texture Icon;
     public MenuSections Section;
     public List<Item> Items;
+
+    void Awake()
+    {
+        foreach (Item item in Items)
+        {
+            item.Model.name = item.Section.ToString();
+        }   
+    }
 
 }

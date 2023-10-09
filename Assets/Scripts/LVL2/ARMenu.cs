@@ -62,8 +62,7 @@ public class ARMenu : MonoBehaviour
     public void LoadItems()
     {
         MenuSections currentSection = currentSelectedSection.GetComponent<ItemSectionPrefab>().Section.Section;
-        Debug.Log("currentSection");
-        Debug.Log(currentSection);
+
         if(itemsContainers.ContainsKey(currentSection))
         {
             ShowItems(currentSection);
