@@ -12,7 +12,7 @@ public class LVLController : MonoBehaviour
     
     public KartLoader KartLoader{get => _kartLoader;}
     public ARMenu ARMenu{get => _aRMenu;}
-    private GameObject currentSelectedObject;
+    [SerializeField] private GameObject currentSelectedObject;
 
     public GameObject CurrentSelectedObject
     {

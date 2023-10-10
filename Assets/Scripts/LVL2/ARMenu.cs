@@ -14,6 +14,7 @@ public class ARMenu : MonoBehaviour
     [Range(0,.2f)][SerializeField] private float 
     _itemsOffsetX, _sectionsOffsetX, _itemsOffsetY, _headerOffset, _headerButtonMargin;
     [SerializeField] private List<ItemsSection> _sections;
+    [SerializeField] private bool _invertSpawnDirection;
     private List<GameObject> items = new List<GameObject>();
     private bool sectionsAreLoaded;
     private float columns;
@@ -52,7 +53,13 @@ public class ARMenu : MonoBehaviour
             {
                 menuFooterPosition.x = itemPosition.x/2;
             }
-            itemPosition.x -= _sectionsOffsetX;
+            if(_invertSpawnDirection)
+            {
+                newItem.transform.localRotation = Quaternion.identity;
+                itemPosition.x += _sectionsOffsetX;
+            }
+            else
+                itemPosition.x -= _sectionsOffsetX;
             nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
 
             i++;
@@ -73,7 +80,11 @@ public class ARMenu : MonoBehaviour
         GameObject newItem;
         Vector3 itemPosition = transform.position;
         BoxCollider itemCollider = _itemPrefab.GetComponent<BoxCollider>();
-        itemPosition.z += _headerButtonMargin;
+        if(_invertSpawnDirection)
+            itemPosition.z -= _headerButtonMargin;
+        else
+            itemPosition.z += _headerButtonMargin;
+        
         Vector3 nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
          
         int i = 1;
@@ -86,12 +97,20 @@ public class ARMenu : MonoBehaviour
             
             itemCollider = newItem.GetComponent<BoxCollider>();
             itemPosition = newItem.transform.position;
-
-            itemPosition.x -= _itemsOffsetX;
-
+            if(_invertSpawnDirection)
+            {
+                newItem.transform.localRotation = Quaternion.AngleAxis(180, Vector3.up);
+                itemPosition.x += _itemsOffsetX;
+            }
+            else
+                itemPosition.x -= _itemsOffsetX;
             if(i == columns)
             {
-                itemPosition.z += _itemsOffsetY;
+                if(_invertSpawnDirection)
+                    itemPosition.z -= _headerButtonMargin;
+                else
+                    itemPosition.z += _headerButtonMargin;
+
                 itemPosition.x = transform.position.x;
                 i = 0;
             }

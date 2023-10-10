@@ -14,6 +14,7 @@ public class ScreenRaycast : MonoBehaviour
 
     public void ThrowRayScreenToWorld(Vector3 screenPosition)
     {
+        if(!gameObject.activeSelf) return;
         Ray worldPoint = _camera.ScreenPointToRay(screenPosition);
 
         if (Physics.Raycast(worldPoint, out RaycastHit raycastHit, 1000, _collisionLayerMask))

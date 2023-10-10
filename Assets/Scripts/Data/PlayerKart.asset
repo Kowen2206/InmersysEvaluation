@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerKart
   m_EditorClassIdentifier: 
   _EntityKey: PlayerKart
-  Wheel: {fileID: 8665675100222657341, guid: 9ee1378987b427e4eafef00090147281, type: 3}
-  Kart: {fileID: 5717997078435539482, guid: 50c46aec60c7b1a438528995c400747a, type: 3}
-  Character: {fileID: 76492207573273247, guid: c0612732e3fcea949b2794c3e54ef5f4, type: 3}
+  Wheel: {fileID: 7446499095465940740, guid: 433366df9a9a17547946aa4c32f554a9, type: 3}
+  Kart: {fileID: 5400371292175905917, guid: fd2f9966448b14948b2baad44b14e390, type: 3}
+  Character: {fileID: 8394372963682715291, guid: 577f2c1d571695e45bb1868d1d593980, type: 3}
