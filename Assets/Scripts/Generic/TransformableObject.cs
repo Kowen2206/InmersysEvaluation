@@ -2,20 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransformableObject : MonoBehaviour
+public class TransformableObject : InteractiveObject
 {
+    [Range(0,1)][SerializeField] private float _scaleFactor = 0.1f;
 
-    [SerializeField] private float _scaleFactor, _rotationSpeed;
+    private float maxScaleValue, initialScaleValue, minScaleValue;
     
-    void Rotate(Vector3 direction)
+    void Start()
     {
-        transform.Rotate(direction);
+        SetScaleValues();
     }
 
-    void Scale(float direction)
+    void SetScaleValues()
     {
-        _scaleFactor *= Mathf.Sign(direction);
-        transform.localScale += new Vector3(_scaleFactor, _scaleFactor, _scaleFactor);
+        _scaleFactor *= transform.localScale.x;
+        initialScaleValue = transform.localScale.x;
+        maxScaleValue = initialScaleValue * 2;
+        minScaleValue = initialScaleValue/2;
+    }
+
+    public void Rotate(Vector3 direction)
+    {
+        if(LVLController.Instance.CurrentSelectedObject != gameObject) return;
+        transform.rotation = Quaternion.AngleAxis(direction.x, Vector3.up);
+    }
+
+    public void Scale(float direction)
+    {
+        if(LVLController.Instance.CurrentSelectedObject != gameObject) return;
+        float newScaleValue = Mathf.Sign(direction) * _scaleFactor;
+
+        if(transform.localScale.x <= maxScaleValue && transform.localScale.x >= minScaleValue)
+            transform.localScale += new Vector3(newScaleValue, newScaleValue, newScaleValue);
+       
+        if(transform.localScale.x > maxScaleValue)
+            transform.localScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
+        
+        if(transform.localScale.x < minScaleValue)
+            transform.localScale = new Vector3(minScaleValue, minScaleValue, minScaleValue);
+        
     }
 
 }

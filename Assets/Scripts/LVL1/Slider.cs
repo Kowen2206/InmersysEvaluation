@@ -8,7 +8,6 @@ public class Slider : MonoBehaviour
 {
 
     [SerializeField] GameObject _bar, _handle;
-    [SerializeField] LVLController _lVLController;
     [SerializeField] UnityEvent<float> _onSliderValueChange; 
 
     BoxCollider barCollider;
@@ -28,7 +27,7 @@ public class Slider : MonoBehaviour
     public void MoveHandler(Vector3 newHandlePos)
     {
         Vector3 handlePos = _handle.transform.position; 
-        if(_lVLController.CurrentSelectedObject == _bar)
+        if(LVLController.Instance.CurrentSelectedObject == _bar)
         _handle.transform.position = new Vector3(newHandlePos.x, handlePos.y, handlePos.z);
     }
 

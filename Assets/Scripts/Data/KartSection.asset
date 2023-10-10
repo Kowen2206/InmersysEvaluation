@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d6ea6c434ebf64dbd6e2329b3e898b, type: 3}
+  m_Name: KartSection
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 2800000, guid: 7433d547049d1994390af96379c26899, type: 3}
+  Section: 1
+  Items:
+  - Icon: {fileID: 2800000, guid: 7b4556d97c1684342beba2f7f700dbf5, type: 3}
+    Section: 1
+    Model: {fileID: 5400371292175905917, guid: fd2f9966448b14948b2baad44b14e390, type: 3}
+  - Icon: {fileID: 2800000, guid: 466f37911edbd254a84ce59c16766a0b, type: 3}
+    Section: 1
+    Model: {fileID: 2195999000325334737, guid: 1d9472f79a644df4c92ee45d18edc85e, type: 3}
