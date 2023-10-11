@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class KartLoader : MonoBehaviour
 {
-    private GameObject _kart, _wheel, _character, _wheelsParent;
     [SerializeField] private PlayerKart _playerKart;
+    [Range(0,1f)][SerializeField] private float _spawnYOffset = .2f;
+    [SerializeField] UnityEvent _onSpawnKart, _onSpwnWheels, _onSpawnCharacter;
+    private GameObject _kart, _wheel, _character, _wheelsParent;
     private float wheelHeigth;
+    public Transform SpawnPoint {get; set;}
     
     public void LoadPlayerKartData()
     {
@@ -15,16 +19,22 @@ public class KartLoader : MonoBehaviour
         LoadKart(_playerKart.Kart);
     }
 
-    public void SavePlayerKartData()
+    public void SavePlayerKartData(GameObject model, MenuSections part)
     { 
-        _playerKart.Wheel = _wheel;
-        _playerKart.Character = _character;
+        if(part == MenuSections.Wheels) _playerKart.Wheel = model;
+        if(part == MenuSections.Characters) _playerKart.Character = model;
+        if(part == MenuSections.Karts) _playerKart.Kart = model;
         _playerKart.SaveData();
     }
     
     public void LoadPart(GameObject model, MenuSections part)
     {
-        if(part == MenuSections.Karts) { LoadKart(model); return; }
+        SavePlayerKartData(model, part);
+        if(part == MenuSections.Karts) 
+        { 
+            LoadKart(model); 
+            return; 
+        }
         
         foreach (Transform pivot in _kart.transform)
         {
@@ -38,17 +48,18 @@ public class KartLoader : MonoBehaviour
                     LoadWheels(pivot, model);
             }
         }
+        
     }
 
     void LoadKart(GameObject model)
     {
+        
         if(!_wheel) _wheel = _playerKart.Wheel;
         if(!_character) _character = _playerKart.Character;
         if(_kart) _kart.GetComponent<DestroyObj>().Destroy();
-        _kart = Instantiate(model, transform);
+        _kart = Instantiate(model, SpawnPoint);
         LoadPart(_wheel, MenuSections.Wheels);
         LoadPart(_character, MenuSections.Characters);
-
     }
 
     void LoadWheels(Transform wheelsParent, GameObject wheel)
@@ -76,8 +87,10 @@ public class KartLoader : MonoBehaviour
 
     void SetKartPosition()
     {
-        _kart.transform.position = 
-        new Vector3(transform.position.x, transform.position.y + wheelHeigth/2, transform.position.z);
+        float YPosition = SpawnPoint.transform.position.y + wheelHeigth/2;
+        YPosition += YPosition * _spawnYOffset;
+        _kart.transform.position =  
+        new Vector3(SpawnPoint.transform.position.x, YPosition, SpawnPoint.transform.position.z);
     }
 
 }
