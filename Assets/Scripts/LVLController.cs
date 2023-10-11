@@ -7,6 +7,7 @@ public class LVLController : MonoBehaviour
     public static LVLController Instance;
 
     [SerializeField] private GameObject _lVL1Group, _lVL2Group;
+    [SerializeField] private Transform _kartSpawnPointLvl1, _kartSpawnPointLvl2;
     [SerializeField] private ARMenu _aRMenu;
     [SerializeField] private KartLoader _kartLoader;
     
@@ -61,12 +62,15 @@ public class LVLController : MonoBehaviour
     {
         _lVL2Group.SetActive(false);
         _lVL1Group.SetActive(true);
+        _kartLoader.SpawnPoint = _kartSpawnPointLvl1;
+        _kartLoader.LoadPlayerKartData();
     }
 
     public void LoadLVL2()
     {
         _lVL2Group.SetActive(true);
         _lVL1Group.SetActive(false);
+        _kartLoader.SpawnPoint = _kartSpawnPointLvl2;
         _kartLoader.LoadPlayerKartData();
         _aRMenu.LoadSections();
         _aRMenu.LoadItems();
