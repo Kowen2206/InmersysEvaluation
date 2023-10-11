@@ -36,21 +36,26 @@ public class LVLController : MonoBehaviour
 
     void Start()
     {
+        LoadLevel();
+    }
+    public void LoadLevel()
+    {
         if(GameManager.Instance.CurrentSection == GameSection.Lvl1)
             LoadLVL1();
         else
             LoadLVL2();
+    }
+    
+    void Update()
+    {
+
     }
 
     public void OnTargetCardFound(int lvl)
     {
         string lvlId = "Lvl" + lvl;
         if(lvlId != GameManager.Instance.CurrentSection.ToString()) return;
-
-        if(GameManager.Instance.CurrentSection == GameSection.Lvl1)
-            LoadLVL1();
-        else
-            LoadLVL2();
+        LoadLevel();
         LvlCardScanned = true;
     }
 
