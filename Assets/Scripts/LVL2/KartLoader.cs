@@ -15,7 +15,6 @@ public class KartLoader : MonoBehaviour
     
     public void LoadPlayerKartData()
     {
-        _playerKart.DeleteData();
         _playerKart.LoadData();
         LoadKart(_playerKart.Kart);
     }
