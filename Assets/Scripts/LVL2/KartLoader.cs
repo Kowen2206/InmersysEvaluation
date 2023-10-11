@@ -8,13 +8,14 @@ public class KartLoader : MonoBehaviour
 {
     [SerializeField] private PlayerKart _playerKart;
     [Range(0,1f)][SerializeField] private float _spawnYOffset = .2f;
-    [SerializeField] UnityEvent _onSpawnKart, _onSpwnWheels, _onSpawnCharacter;
+    [SerializeField] UnityEvent _onChangeItem;
     private GameObject _kart, _wheel, _character, _wheelsParent;
     private float wheelHeigth;
     public Transform SpawnPoint {get; set;}
     
     public void LoadPlayerKartData()
     {
+        //_playerKart.DeleteData();
         _playerKart.LoadData();
         LoadKart(_playerKart.Kart);
     }
@@ -29,7 +30,15 @@ public class KartLoader : MonoBehaviour
     
     public void LoadPart(GameObject model, MenuSections part)
     {
-        SavePlayerKartData(model, part);
+        if(GameManager.Instance.CurrentSection == GameSection.Lvl2)
+        {
+            _onChangeItem?.Invoke();
+        }
+        else
+        {
+            SavePlayerKartData(model, part);
+        }
+
         if(part == MenuSections.Karts) 
         { 
             LoadKart(model); 

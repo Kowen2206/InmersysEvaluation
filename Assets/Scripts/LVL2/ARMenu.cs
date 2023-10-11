@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ARMenu : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class ARMenu : MonoBehaviour
     public GameObject currentSelectedSection{get; set;}
     private Vector3 menuFooterPosition;
     private Dictionary<MenuSections, GameObject> itemsContainers = new Dictionary<MenuSections, GameObject>();
+    public UnityEvent _onSelectSection;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,7 @@ public class ARMenu : MonoBehaviour
     public void LoadItems()
     {
         MenuSections currentSection = currentSelectedSection.GetComponent<ItemSectionPrefab>().Section.Section;
-
+        _onSelectSection?.Invoke();
         if(itemsContainers.ContainsKey(currentSection))
         {
             ShowItems(currentSection);
