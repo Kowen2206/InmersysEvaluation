@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d6ea6c434ebf64dbd6e2329b3e898b, type: 3}
   m_Name: KartSection
   m_EditorClassIdentifier: 
-  Icon: {fileID: 2800000, guid: 7433d547049d1994390af96379c26899, type: 3}
+  Icon: {fileID: 2800000, guid: e4840ae8d684efe4c85f4850c5044969, type: 3}
   Section: 1
   Items:
   - Icon: {fileID: 2800000, guid: 7b4556d97c1684342beba2f7f700dbf5, type: 3}
