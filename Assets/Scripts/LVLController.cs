@@ -14,6 +14,7 @@ public class LVLController : MonoBehaviour
     public KartLoader KartLoader{get => _kartLoader;}
     public ARMenu ARMenu{get => _aRMenu;}
     private GameObject currentSelectedObject;
+    public bool LvlCardScanned {get; set;}
 
     public GameObject CurrentSelectedObject
     {
@@ -50,12 +51,14 @@ public class LVLController : MonoBehaviour
             LoadLVL1();
         else
             LoadLVL2();
+        LvlCardScanned = true;
     }
 
     public void OnTargetCardLost()
     {
         _lVL2Group.SetActive(false);
         _lVL1Group.SetActive(false);
+        LvlCardScanned = false;
     }
 
     public void LoadLVL1()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f82f854531f764583e3756ce77d134, type: 3}
   m_Name: PlayerKart
   m_EditorClassIdentifier: 
-  _EntityKey: Player-Kart
+  _EntityKey: Player-Kartt
   Wheel: {fileID: 7446499095465940740, guid: 433366df9a9a17547946aa4c32f554a9, type: 3}
-  Kart: {fileID: 2195999000325334737, guid: 1d9472f79a644df4c92ee45d18edc85e, type: 3}
-  Character: {fileID: 5808708873229496714, guid: e41fbde8da519b4489785df08cb373fa, type: 3}
+  Kart: {fileID: 5400371292175905917, guid: fd2f9966448b14948b2baad44b14e390, type: 3}
+  Character: {fileID: 2785119164415660839, guid: 8a3cf6c920740544d813adc7d7214f3b, type: 3}
