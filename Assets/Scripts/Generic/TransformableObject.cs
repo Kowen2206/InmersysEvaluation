@@ -23,13 +23,13 @@ public class TransformableObject : InteractiveObject
 
     public void Rotate(Vector3 direction)
     {
-        if(GameManager.Instance.CurrentSection == GameSection.Lvl2) return;
+        if(GameManager.Instance.CurrentSection != GameSection.Lvl2) return;
         transform.rotation = Quaternion.AngleAxis(direction.x, Vector3.up);
     }
 
     public void Scale(float direction)
     {
-        if(GameManager.Instance.CurrentSection == GameSection.Lvl2) return;
+        if(GameManager.Instance.CurrentSection != GameSection.Lvl2) return;
         float newScaleValue = Mathf.Sign(direction) * _scaleFactor;
 
         if(transform.localScale.x <= maxScaleValue && transform.localScale.x >= minScaleValue)
