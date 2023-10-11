@@ -1852,12 +1852,8 @@ MonoBehaviour:
   - "Arrastra tu dedo sobre el slider AR para mover tu kart sobre la gr\xE1fica."
   _lvl2Instructions:
   - Usa el menu AR para modificar tu carro
-  - 'Arrastra el dedo sobre la pantalla para
-
-    girar tu kart.'
-  - 'Haz un zoom in o zoom out con dos
-
-    dedos para escalar tu kart.'
+  - Arrastra el dedo sobre la pantalla para girar tu kart.
+  - Haz un zoom in o zoom out con dos dedos para escalar tu kart.
   _instructionsTextMesh: {fileID: 2098057365}
   _instructionsContainer: {fileID: 236702290}
   _scanInstructions: {fileID: 1280349700}
