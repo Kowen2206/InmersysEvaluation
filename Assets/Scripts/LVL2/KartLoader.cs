@@ -32,11 +32,8 @@ public class KartLoader : MonoBehaviour
     {
         if(GameManager.Instance.CurrentSection == GameSection.Lvl2)
         {
-            _onChangeItem?.Invoke();
-        }
-        else
-        {
             SavePlayerKartData(model, part);
+            _onChangeItem?.Invoke();
         }
 
         if(part == MenuSections.Karts) 
