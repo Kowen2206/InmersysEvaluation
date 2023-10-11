@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f82f854531f764583e3756ce77d134, type: 3}
+  m_Name: PlayerKart
+  m_EditorClassIdentifier: 
+  _EntityKey: Player-Kartt
+  Wheel: {fileID: 7446499095465940740, guid: 433366df9a9a17547946aa4c32f554a9, type: 3}
+  Kart: {fileID: 5400371292175905917, guid: fd2f9966448b14948b2baad44b14e390, type: 3}
+  Character: {fileID: 2785119164415660839, guid: 8a3cf6c920740544d813adc7d7214f3b, type: 3}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d6ea6c434ebf64dbd6e2329b3e898b, type: 3}
+  m_Name: CharactersSection
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 2800000, guid: 1ea3383ead52af24db97d13f9131e860, type: 3}
+  Section: 3
+  Items:
+  - Icon: {fileID: 2800000, guid: 09c0f3dc2ab317d4bb4c9bc76ff1be5b, type: 3}
+    Section: 3
+    Model: {fileID: 5808708873229496714, guid: e41fbde8da519b4489785df08cb373fa, type: 3}
+  - Icon: {fileID: 2800000, guid: 3aebc5f394903be42af4060264cc8b22, type: 3}
+    Section: 3
+    Model: {fileID: 8394372963682715291, guid: 577f2c1d571695e45bb1868d1d593980, type: 3}
+  - Icon: {fileID: 2800000, guid: 8f5455cea309ff544a0514f70d320225, type: 3}
+    Section: 3
+    Model: {fileID: 2785119164415660839, guid: 8a3cf6c920740544d813adc7d7214f3b, type: 3}
