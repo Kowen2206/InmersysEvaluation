@@ -15,7 +15,7 @@ public class ItemSectionPrefab : InteractiveObject
 
     public void LoadIcon()
     {
-        Material newMaterial = new Material(Shader.Find("Standard"));
+        Material newMaterial = new Material(Shader.Find("Unlit/Transparent"));
         newMaterial.mainTexture = Section.Icon;
         _meshRenderer.material = newMaterial;
     }

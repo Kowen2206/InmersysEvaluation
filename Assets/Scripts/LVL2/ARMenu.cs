@@ -99,7 +99,7 @@ public class ARMenu : MonoBehaviour
             itemPosition = newItem.transform.position;
             if(_invertSpawnDirection)
             {
-                newItem.transform.localRotation = Quaternion.AngleAxis(180, Vector3.up);
+                newItem.transform.localRotation = Quaternion.identity;
                 itemPosition.x += _itemsOffsetX;
             }
             else
@@ -117,7 +117,7 @@ public class ARMenu : MonoBehaviour
 
             if(i == itemsCount)
             {
-                menuFooterPosition.y = itemPosition.y + itemCollider.bounds.extents.y + _headerOffset;
+                menuFooterPosition.y = itemPosition.y + itemCollider.bounds.extents.y + _itemsOffsetY;
             }
             
             nextPosition = new Vector3(itemPosition.x, itemPosition.y, itemPosition.z);
@@ -130,10 +130,8 @@ public class ARMenu : MonoBehaviour
     {
         if(!itemsContainers.ContainsKey(itemSection))
         {
-            itemsContainers.Add(itemSection, new GameObject());
-
-            Debug.Log("CreatedSection");
-            Debug.Log(itemSection);
+            GameObject newSection = Instantiate(new GameObject(), transform);
+            itemsContainers.Add(itemSection, newSection);
         }
             
     }

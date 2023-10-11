@@ -12,7 +12,7 @@ public class LVLController : MonoBehaviour
     
     public KartLoader KartLoader{get => _kartLoader;}
     public ARMenu ARMenu{get => _aRMenu;}
-    [SerializeField] private GameObject currentSelectedObject;
+    private GameObject currentSelectedObject;
 
     public GameObject CurrentSelectedObject
     {
@@ -38,7 +38,23 @@ public class LVLController : MonoBehaviour
             LoadLVL1();
         else
             LoadLVL2();
-        
+    }
+
+    public void OnTargetCardFound(int lvl)
+    {
+        string lvlId = "Lvl" + lvl;
+        if(lvlId != GameManager.Instance.CurrentSection.ToString()) return;
+
+        if(GameManager.Instance.CurrentSection == GameSection.Lvl1)
+            LoadLVL1();
+        else
+            LoadLVL2();
+    }
+
+    public void OnTargetCardLost()
+    {
+        _lVL2Group.SetActive(false);
+        _lVL1Group.SetActive(false);
     }
 
     public void LoadLVL1()
